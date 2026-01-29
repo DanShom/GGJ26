@@ -1,0 +1,38 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c43c28c0aa0addd4991327e3c12af645, type: 3}
+  m_Name: NewSaveManager
+  m_EditorClassIdentifier: 
+  gameData:
+    newSave: 0
+    highScore: 0
+    moneyAmount: 0
+    sailerId: 0
+    playerName: 
+    currentId: 
+    language: 0
+    longs:
+      keys:
+      - 4c74932b-8ccf-49d1-906a-e6823b026d2c
+      - 5631a35c-ef97-4402-ae0b-900d4c003873
+      values: 90000000000000008600000000000000
+    floats:
+      keys:
+      - 472ce36e-d742-4c9e-be87-415e7fc890b7
+      values:
+      - 145.47339
+    ints:
+      keys:
+      - cfad917b-158a-4102-8235-704ac20e15a9
+      values: 02000000
+  fileName: SaveGame.game
+  EncriptData: 1
