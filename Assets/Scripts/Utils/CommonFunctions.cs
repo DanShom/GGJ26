@@ -77,16 +77,6 @@ public class CommonFunctions
         }
     }
 
-    public static bool IsColliderWithPlayer(Collider collider)
-    {
-        return collider.gameObject.tag == Tags.PLAYER;
-    }
-
-    public static bool IsCollisionWithPlayer(Collision collision)
-    {
-        return collision.gameObject.tag == Tags.PLAYER;
-    }
-
     public static bool IsCollisionWithTag(Collision collision, string tagToCompare)
     {
         return collision.gameObject.tag == tagToCompare;
@@ -104,12 +94,6 @@ public class CommonFunctions
     {
         if (!hit.transform) return false;
         return tags.Contains(hit.transform.tag);
-    }
-
-    public static bool IsRaycastHitWithPlayer(RaycastHit hit)
-    {
-        if (!hit.transform) return false;
-        return hit.transform.tag == Tags.PLAYER;
     }
 
     public static void PrintList<T>(List<T> list, string prefix = "")
@@ -316,7 +300,7 @@ public class CommonFunctions
     {
         Vector3 eyePos = detector + Vector3.up * heightOffset;
         Vector3 toPlayer = target - eyePos;
-        return toPlayer.WithZeroY().sqrMagnitude <= distance * distance;
+        return toPlayer.sqrMagnitude <= distance * distance;
     }
 
     public static bool InView(Transform target, Transform detector, float angle, float radius, float heightOffset, float maxHeightDifference, LayerMask viewBlockerLayerMask, bool useHeightDifference = true)
