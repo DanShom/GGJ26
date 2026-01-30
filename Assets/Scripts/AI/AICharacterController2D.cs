@@ -2,11 +2,11 @@ using Pathfinding;
 using TarodevController;
 using UnityEngine;
 
-[RequireComponent(typeof(PlayerController))]
+[RequireComponent(typeof(CharacterMovement))]
 [RequireComponent(typeof(Seeker))]
 [RequireComponent(typeof(Rigidbody2D))]
 [RequireComponent(typeof(Collider2D))]
-public class AIPlayerController2D : MonoBehaviour
+public class AICharacterController2D : MonoBehaviour
 {
     [Header("Target")]
     [SerializeField] private Transform target;
@@ -19,7 +19,7 @@ public class AIPlayerController2D : MonoBehaviour
     [SerializeField] private LayerMask groundLayer;
     [SerializeField] private float groundCheckDistance = 0.1f;
 
-    private PlayerController controller;
+    private CharacterMovement controller;
     private Seeker seeker;
     private Rigidbody2D rb;
     private Collider2D col;
@@ -33,7 +33,7 @@ public class AIPlayerController2D : MonoBehaviour
 
     private void Awake()
     {
-        controller = GetComponent<PlayerController>();
+        controller = GetComponent<CharacterMovement>();
         seeker = GetComponent<Seeker>();
         rb = GetComponent<Rigidbody2D>();
         col = GetComponent<Collider2D>();
@@ -53,7 +53,7 @@ public class AIPlayerController2D : MonoBehaviour
     {
         if (!TargetInRange())
         {
-            controller.SetAIInput(Vector2.zero, false, false);
+            controller.SetInput(Vector2.zero, false, false);
             return;
         }
 
@@ -70,7 +70,7 @@ public class AIPlayerController2D : MonoBehaviour
     {
         if (path == null || currentWaypoint >= path.vectorPath.Count)
         {
-            controller.SetAIInput(Vector2.zero, false, false);
+            controller.SetInput(Vector2.zero, false, false);
             return;
         }
 
@@ -84,7 +84,7 @@ public class AIPlayerController2D : MonoBehaviour
             Time.time > lastJumpTime + JumpCooldown &&
             toWaypoint.y > jumpNodeHeightRequirement;
 
-        controller.SetAIInput(
+        controller.SetInput(
             new Vector2(moveX, 0),
             wantsJump,
             wantsJump
