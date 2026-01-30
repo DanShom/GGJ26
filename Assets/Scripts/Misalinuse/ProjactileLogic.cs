@@ -89,6 +89,7 @@ public class ProjactileLogic : MonoBehaviour
     {
         if (other.gameObject != source)
         {
+
             Damageable<float> dmg = other.GetComponent<Damageable<float>>();
             if (dmg != null && other.gameObject != source)
             {

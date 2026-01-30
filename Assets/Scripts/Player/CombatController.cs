@@ -54,7 +54,7 @@ public class CombatController : MonoBehaviour
         if (_RangeAttack) RangeAttack();
         else RegularAttack();
     }
-    
+
     private void RegularAttack()
     {
         Debug.Log("Attack");
@@ -67,7 +67,7 @@ public class CombatController : MonoBehaviour
 
         foreach (Collider2D hit in hits)
         {
-            Debug.Log("Hit: "+ hit.name);
+            Debug.Log("Hit: " + hit.name);
             Damageable<float> dmg = hit.gameObject.GetComponent<Damageable<float>>();
             if (dmg != null && hit.gameObject != this)
             {
@@ -90,5 +90,24 @@ public class CombatController : MonoBehaviour
         ProjactileLogic plg = bullet.GetComponent<ProjactileLogic>();
         plg.Damage = this.plg.Damage;
         plg.SetTarget(mouseWorldPos, this.gameObject);
+    }
+
+    private void HeavyAttack()
+    {
+        Collider2D[] hits = Physics2D.OverlapCircleAll(
+            this.transform.position + (movenet.direction.x > 0f ? Vector3.right : Vector3.left),
+            1f,
+            characterLayerMask
+        );
+
+        foreach (Collider2D hit in hits)
+        {
+            Debug.Log("Hit: " + hit.name);
+            Damageable<float> dmg = hit.gameObject.GetComponent<Damageable<float>>();
+            if (dmg != null && hit.gameObject != this)
+            {
+                dmg.OnDamage(50f);
+            }
+        }
     }
 }
