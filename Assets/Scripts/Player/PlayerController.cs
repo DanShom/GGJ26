@@ -14,6 +14,8 @@ namespace TarodevController
     public class PlayerController : MonoBehaviour, IPlayerController
     {
         [SerializeField] private ScriptableStats _stats;
+        [SerializeField] private bool controlledByAI;
+
         private Rigidbody2D _rb;
         private CapsuleCollider2D _col;
         private FrameInput _frameInput;
@@ -64,7 +66,30 @@ namespace TarodevController
         private void Update()
         {
             _time += Time.deltaTime;
-            GatherInput();
+            if (!controlledByAI)
+                GatherInput();
+        }
+
+        public void SetAIInput(Vector2 move, bool jumpDown, bool jumpHeld)
+        {
+            _frameInput = new FrameInput
+            {
+                Move = move,
+                JumpDown = jumpDown,
+                JumpHeld = jumpHeld
+            };
+
+            if (_stats.SnapInput)
+            {
+                _frameInput.Move.x = Mathf.Abs(_frameInput.Move.x) < _stats.HorizontalDeadZoneThreshold ? 0 : Mathf.Sign(_frameInput.Move.x);
+                _frameInput.Move.y = 0; // AI should not push vertical
+            }
+
+            if (jumpDown)
+            {
+                _jumpToConsume = true;
+                _timeJumpWasPressed = _time;
+            }
         }
 
         private void GatherInput()
@@ -156,7 +181,7 @@ namespace TarodevController
 
         private void HandleJump()
         {
-            if (!_endedJumpEarly && !_grounded && !_frameInput.JumpHeld && _rb.linearVelocity.y > 0) _endedJumpEarly = true;
+            if (!_endedJumpEarly && !_grounded && !_frameInput.JumpHeld && _rb.linearVelocity.y > 0 && !controlledByAI) _endedJumpEarly = true;
 
             if (!_jumpToConsume && !HasBufferedJump) return;
 
