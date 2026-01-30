@@ -7,7 +7,7 @@ using System;
 [RequireComponent(typeof(Seeker))]
 [RequireComponent(typeof(Rigidbody2D))]
 [RequireComponent(typeof(Collider2D))]
-public class AICharacterController2D : MonoBehaviour, Damageable<float>
+public class AICharacterController2D : MonoBehaviour
 {
     [Header("Target")]
     [SerializeField] private Transform target;
@@ -163,16 +163,6 @@ public class AICharacterController2D : MonoBehaviour, Damageable<float>
         }
     }
 
-    public void OnDamage(float log)
-    {
-        Debug.Log("Enemy " + this.name + " Got hit! " + log + " Damage");
-        //throw new System.NotImplementedException();
-    }
-
-    public bool IsDead()
-    {
-        throw new System.NotImplementedException();
-    }
 #endif
     #endregion
 }

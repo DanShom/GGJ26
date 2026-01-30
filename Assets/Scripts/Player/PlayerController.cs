@@ -73,11 +73,12 @@ public class PlayerController : MonoBehaviour, Damageable<float>
 
     public void OnDamage(float log)
     {
-        throw new System.NotImplementedException();
+        //throw new System.NotImplementedException();
     }
 
     public bool IsDead()
     {
-        throw new System.NotImplementedException();
+        //throw new System.NotImplementedException();
+        return false;
     }
 }

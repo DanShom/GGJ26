@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 
 [RequireComponent(typeof(AICharacterController2D))]
-public class AIController : MonoBehaviour
+public class AIController : MonoBehaviour, Damageable<float>
 {
     private enum States
     {
@@ -119,5 +119,16 @@ public class AIController : MonoBehaviour
                 dmg.OnDamage(10f);
             }
         }
+    }
+
+    public void OnDamage(float log)
+    {
+        Debug.Log("Enemy " + this.name + " Got hit! " + log + " Damage");
+        //throw new System.NotImplementedException();
+    }
+
+    public bool IsDead()
+    {
+        throw new System.NotImplementedException();
     }
 }
