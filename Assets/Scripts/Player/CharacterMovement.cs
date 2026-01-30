@@ -16,6 +16,15 @@ namespace TarodevController
         [SerializeField] private ScriptableStats _stats;
         [SerializeField] private bool controlledByAI;
 
+        public Vector2 direction
+        {
+            get
+            {
+                return lsDirection;
+            }
+        }
+        private Vector2 lsDirection;
+
         private Rigidbody2D _rb;
         private CapsuleCollider2D _col;
         private FrameInput _frameInput;
@@ -54,12 +63,14 @@ namespace TarodevController
 
         private void OnEnable()
         {
-            playerInput.Player.Enable();
+            playerInput.Player.Move.Enable();
+            playerInput.Player.Jump.Enable();
 
         }
         private void OnDisable()
         {
-            playerInput.Player.Disable();
+            playerInput.Player.Move.Disable();
+            playerInput.Player.Jump.Enable();
 
         }
 
@@ -76,6 +87,8 @@ namespace TarodevController
                 JumpDown = jumpDown,
                 JumpHeld = jumpHeld
             };
+            if (_frameInput.Move.magnitude > 0.1f)
+                lsDirection = _frameInput.Move;
 
             if (_stats.SnapInput)
             {

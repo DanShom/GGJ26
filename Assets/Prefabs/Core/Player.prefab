@@ -14,7 +14,8 @@ GameObject:
   - component: {fileID: 157427978015069149}
   - component: {fileID: 5351662188750497200}
   - component: {fileID: 808499322147974982}
-  m_Layer: 6
+  - component: {fileID: 4833781493026428888}
+  m_Layer: 7
   m_Name: Player
   m_TagString: Player
   m_Icon: {fileID: 0}
@@ -185,3 +186,18 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::TarodevController.CharacterMovement
   _stats: {fileID: 11400000, guid: cbe2c30b34d26db4daeda349477da857, type: 2}
   controlledByAI: 0
+--- !u!114 &4833781493026428888
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3638272690297484799}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d66cc61fc860deb4dbe602c4a3785c55, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::CombatController
+  characterLayerMask:
+    serializedVersion: 2
+    m_Bits: 64

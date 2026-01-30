@@ -1,12 +1,13 @@
 using Pathfinding;
 using TarodevController;
 using UnityEngine;
+using System;
 
 [RequireComponent(typeof(CharacterMovement))]
 [RequireComponent(typeof(Seeker))]
 [RequireComponent(typeof(Rigidbody2D))]
 [RequireComponent(typeof(Collider2D))]
-public class AICharacterController2D : MonoBehaviour
+public class AICharacterController2D : MonoBehaviour, Damageable<float>
 {
     [Header("Target")]
     [SerializeField] private Transform target;
@@ -49,6 +50,35 @@ public class AICharacterController2D : MonoBehaviour
         CancelInvoke(nameof(UpdatePath));
     }
 
+    #region Public API (AI as a Service)
+
+    public bool _hasTarget { get; private set; }
+    public bool _isEnabled { get; private set; }
+    public bool _reachedTarget { get; private set; }
+    public bool _ { get; private set; }
+    public void SetTarget(Transform target)
+    {
+        this.target = target;
+        _hasTarget = this.target != null;
+    }
+
+    public void ClearTarget()
+    {
+        _hasTarget = false;
+        this.target = null;
+        path = null;
+        currentWaypoint = 0;
+        controller.SetInput(Vector2.zero, false, false);
+    }
+
+    public void EnableAgnet(bool enable)
+    {
+        this._isEnabled = enable;
+    }
+
+    #endregion
+
+    #region Agnet Logic
     private void FixedUpdate()
     {
         if (!TargetInRange())
@@ -57,7 +87,7 @@ public class AICharacterController2D : MonoBehaviour
             return;
         }
 
-        FollowPath();
+        if(_isEnabled) FollowPath();
     }
 
     private void UpdatePath()
@@ -68,6 +98,7 @@ public class AICharacterController2D : MonoBehaviour
 
     private void FollowPath()
     {
+        _reachedTarget = (path == null || currentWaypoint >= path.vectorPath.Count);
         if (path == null || currentWaypoint >= path.vectorPath.Count)
         {
             controller.SetInput(Vector2.zero, false, false);
@@ -109,7 +140,9 @@ public class AICharacterController2D : MonoBehaviour
 
     private bool TargetInRange()
     {
-        return Vector2.Distance(rb.position, target.position) <= activateDistance;
+        if(target)
+            return Vector2.Distance(rb.position, target.position) <= activateDistance;
+        return false;
     }
 
     private void OnPathComplete(Path p)
@@ -129,5 +162,17 @@ public class AICharacterController2D : MonoBehaviour
             Gizmos.DrawSphere(path.vectorPath[i], 0.1f);
         }
     }
+
+    public void OnDamage(float log)
+    {
+        Debug.Log("Enemy " + this.name + " Got hit! " + log + " Damage");
+        //throw new System.NotImplementedException();
+    }
+
+    public bool IsDead()
+    {
+        throw new System.NotImplementedException();
+    }
 #endif
+    #endregion
 }

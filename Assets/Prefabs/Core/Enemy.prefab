@@ -13,8 +13,10 @@ GameObject:
   - component: {fileID: 6066450074445099272}
   - component: {fileID: 7193165538628699688}
   - component: {fileID: 1300585152207556982}
+  - component: {fileID: 2354387545150321021}
+  - component: {fileID: 1111940587185408156}
   - component: {fileID: 7268704221778538383}
-  - component: {fileID: 694143172262253713}
+  - component: {fileID: 5335771915947323142}
   m_Layer: 6
   m_Name: Enemy
   m_TagString: Untagged
@@ -174,6 +176,47 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::TarodevController.PlayerController
   _stats: {fileID: 11400000, guid: cbe2c30b34d26db4daeda349477da857, type: 2}
   controlledByAI: 1
+--- !u!114 &2354387545150321021
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5062091220880873407}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8e1e1a8cc730f0546966fee4e404a692, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::AICharacterController2D
+  target: {fileID: 0}
+  activateDistance: 50
+  pathUpdateSeconds: 0.5
+  nextWaypointDistance: 1.2
+  jumpNodeHeightRequirement: 0.8
+  groundLayer:
+    serializedVersion: 2
+    m_Bits: 1
+  groundCheckDistance: 0.1
+--- !u!114 &1111940587185408156
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5062091220880873407}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7e4c7dd69277a974293ed5b9093903c2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::AIController
+  states: 0
+  characterLayerMask:
+    serializedVersion: 2
+    m_Bits: 128
+  AttackRange:
+    useConstant: 1
+    constantValue: 2
+    variable: {fileID: 0}
 --- !u!114 &7268704221778538383
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -202,7 +245,7 @@ MonoBehaviour:
   tagPenalties: 0000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
   graphMask:
     value: -1
---- !u!114 &694143172262253713
+--- !u!114 &5335771915947323142
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -211,15 +254,14 @@ MonoBehaviour:
   m_GameObject: {fileID: 5062091220880873407}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8e1e1a8cc730f0546966fee4e404a692, type: 3}
+  m_Script: {fileID: 11500000, guid: d903b6f2c95e2e54bb8d3aacdd127d92, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::AICharacterController2D
-  target: {fileID: 0}
-  activateDistance: 50
+  m_EditorClassIdentifier: Assembly-CSharp::AICharacterAgent2D
   pathUpdateSeconds: 0.5
   nextWaypointDistance: 1.2
   jumpNodeHeightRequirement: 0.8
+  jumpCooldown: 0.2
   groundLayer:
     serializedVersion: 2
     m_Bits: 1
-  groundCheckDistance: 0.1
+  arrivalTolerance: 0.2

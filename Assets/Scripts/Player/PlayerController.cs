@@ -10,6 +10,7 @@ public class PlayerController : MonoBehaviour, Damageable<float>
     private SmartSwitch jumpSwtich;
     private CharacterMovement controller;
 
+
     private void GatherInput()
     {
         jumpSwtich.Update(playerInput.Player.Jump.IsPressed());
@@ -66,5 +67,15 @@ public class PlayerController : MonoBehaviour, Damageable<float>
     void Update()
     {
         GatherInput();
+    }
+
+    public void OnDamage(float log)
+    {
+        throw new System.NotImplementedException();
+    }
+
+    public bool IsDead()
+    {
+        throw new System.NotImplementedException();
     }
 }
