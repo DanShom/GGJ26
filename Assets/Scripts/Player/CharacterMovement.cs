@@ -15,6 +15,7 @@ namespace TarodevController
     {
         [SerializeField] private ScriptableStats _stats;
         [SerializeField] private bool controlledByAI;
+        [SerializeField] public bool _activateDubleJump;
 
         public Vector2 direction
         {
@@ -34,6 +35,7 @@ namespace TarodevController
         private InputSystem_Actions playerInput;
 
         private SmartSwitch jumpSwtich;
+        private bool dubleJumpCheck;
 
         #region Interface
 
@@ -166,9 +168,14 @@ namespace TarodevController
 
         private void HandleJump()
         {
+
             if (!_endedJumpEarly && !_grounded && !_frameInput.JumpHeld && _rb.linearVelocity.y > 0 && !controlledByAI) _endedJumpEarly = true;
 
+            if (dubleJumpCheck && _grounded) dubleJumpCheck = false;
+
             if (!_jumpToConsume && !HasBufferedJump) return;
+
+            if (dubleJumpCheck && _activateDubleJump) ExecuteDubleJump();
 
             if (_grounded || CanUseCoyote) ExecuteJump();
 
@@ -177,10 +184,17 @@ namespace TarodevController
 
         private void ExecuteJump()
         {
+            dubleJumpCheck = true;
             _endedJumpEarly = false;
             _timeJumpWasPressed = 0;
             _bufferedJumpUsable = false;
             _coyoteUsable = false;
+            _frameVelocity.y = Mathf.Sqrt(_stats.JumpHight * 2 * _stats.FallAcceleration);
+            Jumped?.Invoke();
+        }
+        private void ExecuteDubleJump()
+        {
+            dubleJumpCheck = false;
             _frameVelocity.y = Mathf.Sqrt(_stats.JumpHight * 2 * _stats.FallAcceleration);
             Jumped?.Invoke();
         }

@@ -3,6 +3,8 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.InputSystem.XR;
 
+[RequireComponent(typeof(MaskHandler))]
+[RequireComponent(typeof(CharacterMovement))]
 public class PlayerController : MonoBehaviour, Damageable<float>
 {
     private InputSystem_Actions playerInput;
