@@ -296,6 +296,11 @@ public class CommonFunctions
         return 0f;
     }
 
+    public static float JumpVelocityToHight(float height, float gravity)
+    {
+        return Mathf.Sqrt(height * 2 * gravity);
+    }
+
     public static bool IsClose(Vector3 target, Vector3 detector, float distance, float heightOffset = 0.0f)
     {
         Vector3 eyePos = detector + Vector3.up * heightOffset;

@@ -171,7 +171,7 @@ namespace TarodevController
             _timeJumpWasPressed = 0;
             _bufferedJumpUsable = false;
             _coyoteUsable = false;
-            _frameVelocity.y = _stats.JumpPower;
+            _frameVelocity.y = Mathf.Sqrt(_stats.JumpHight * 2 * _stats.FallAcceleration);
             Jumped?.Invoke();
         }
 
