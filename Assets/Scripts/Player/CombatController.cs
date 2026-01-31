@@ -1,3 +1,4 @@
+using System;
 using TarodevController;
 using Unity.Mathematics;
 using Unity.XR.Oculus.Input;
@@ -17,6 +18,9 @@ public class CombatController : MonoBehaviour
     private ProjactileLogic plg;
     [Header("Projectle Logic")]
     public ObjectPool amunition;
+
+    public Action OnRegularAttack;
+
     public ObjectPool Amunition
     {
         set
@@ -58,7 +62,7 @@ public class CombatController : MonoBehaviour
     private void RegularAttack()
     {
         Debug.Log("Attack");
-
+        OnRegularAttack.Invoke();
         Collider2D[] hits = Physics2D.OverlapCircleAll(
             this.transform.position + (movenet.direction.x > 0f ? Vector3.right : Vector3.left),
             1f,
@@ -74,6 +78,7 @@ public class CombatController : MonoBehaviour
                 dmg.OnDamage(10f);
             }
         }
+
     }
 
     private void RangeAttack()

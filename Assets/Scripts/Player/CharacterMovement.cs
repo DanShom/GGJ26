@@ -26,12 +26,22 @@ namespace TarodevController
                 return lsDirection;
             }
         }
+        public float speed
+        {
+            get
+            {
+
+                return _frameVelocity.magnitude;
+            }
+        }
+
         private Vector2 lsDirection;
 
         private Rigidbody2D _rb;
         private CapsuleCollider2D _col;
         private FrameInput _frameInput;
-        private Vector2 _frameVelocity;
+        public Vector2 _frameVelocity;
+
         private bool _cachedQueryStartInColliders;
 
         private InputSystem_Actions playerInput;
@@ -124,7 +134,7 @@ namespace TarodevController
         #region Collisions
         
         private float _frameLeftGrounded = float.MinValue;
-        private bool _grounded;
+        public bool _grounded { get; private set; }
 
         private void CheckCollisions()
         {
