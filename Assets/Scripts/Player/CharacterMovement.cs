@@ -16,6 +16,8 @@ namespace TarodevController
         [SerializeField] private ScriptableStats _stats;
         [SerializeField] private bool controlledByAI;
         [SerializeField] public bool _activateDubleJump;
+        [SerializeField] public bool _activateDash;
+
 
         public Vector2 direction
         {
@@ -81,7 +83,7 @@ namespace TarodevController
             _time += Time.deltaTime;
         }
 
-        public void SetInput(Vector2 move, bool jumpDown, bool jumpHeld)
+        public void SetInput(Vector2 move, bool jumpDown, bool jumpHeld, bool maskPower = false)
         {
             _frameInput = new FrameInput
             {
@@ -103,6 +105,8 @@ namespace TarodevController
                 _jumpToConsume = true;
                 _timeJumpWasPressed = _time;
             }
+            if (maskPower && _activateDash)
+                _dashToConsume = true;
         }
 
 
@@ -110,6 +114,7 @@ namespace TarodevController
         {
             CheckCollisions();
 
+            HandleDash();
             HandleJump();
             HandleDirection();
             HandleGravity();
@@ -153,7 +158,6 @@ namespace TarodevController
         }
 
         #endregion
-
 
         #region Jumping
 
@@ -201,6 +205,50 @@ namespace TarodevController
 
         #endregion
 
+        #region Dash
+
+        private bool _dashToConsume;
+        private bool _isDashing;
+        private float _dashEndTime;
+        private float _lastDashTime;
+        private void HandleDash()
+        {
+            if (!_activateDash)
+                return;
+
+            // End dash
+            if (_isDashing && _time >= _dashEndTime)
+            {
+                _isDashing = false;
+                return;
+            }
+
+            // Already dashing
+            if (_isDashing)
+                return;
+
+            // Cooldown
+            if (!_dashToConsume || _time < _lastDashTime + _stats.DashCooldown)
+                return;
+
+            ExecuteDash();
+            _dashToConsume = false;
+        }
+
+        private void ExecuteDash()
+        {
+            _isDashing = true;
+            _lastDashTime = _time;
+            _dashEndTime = _time + _stats.DashDuration;
+
+            Vector2 dashDir = direction.x > 0f ? Vector3.right : Vector3.left;
+            dashDir.Normalize();
+
+            _frameVelocity = dashDir * _stats.DashSpeed;
+        }
+
+        #endregion
+
         #region Horizontal
 
         private void HandleDirection()
@@ -222,6 +270,9 @@ namespace TarodevController
 
         private void HandleGravity()
         {
+            if (_isDashing)
+                return;
+
             if (_grounded && _frameVelocity.y <= 0f)
             {
                 _frameVelocity.y = _stats.GroundingForce;
