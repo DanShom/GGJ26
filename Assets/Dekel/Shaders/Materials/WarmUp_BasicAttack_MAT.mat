@@ -7,8 +7,8 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: Scroll_MAT
-  m_Shader: {fileID: -6465566751694194690, guid: 600c007e9631a3649a8cb5cc534de853, type: 3}
+  m_Name: WarmUp_BasicAttack_MAT
+  m_Shader: {fileID: -6465566751694194690, guid: f029fda77cebf65479c20ee0726bf700, type: 3}
   m_Parent: {fileID: 0}
   m_ModifiedSerializedProperties: 0
   m_ValidKeywords: []
@@ -16,7 +16,7 @@ Material:
   m_LightmapFlags: 4
   m_EnableInstancingVariants: 0
   m_DoubleSidedGI: 0
-  m_CustomRenderQueue: -1
+  m_CustomRenderQueue: 3000
   stringTagMap: {}
   disabledShaderPasses:
   - MOTIONVECTORS
@@ -24,7 +24,11 @@ Material:
   m_SavedProperties:
     serializedVersion: 3
     m_TexEnvs:
-    - _Texture2D:
+    - _SampleTexture2D_4d2268707c6c474fb3e4049a2d90fbcd_Texture_1_Texture2D:
+        m_Texture: {fileID: 10300, guid: 0000000000000000f000000000000000, type: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _SampleTexture2D_5bcadb1d069c4a4da6c9ad7e77638152_Texture_1_Texture2D:
         m_Texture: {fileID: 10300, guid: 0000000000000000f000000000000000, type: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
@@ -42,20 +46,16 @@ Material:
         m_Offset: {x: 0, y: 0}
     m_Ints: []
     m_Floats:
-    - _Clip: 0.7
+    - _Animate: 0
+    - _Clip: 0
     - _QueueControl: 0
     - _QueueOffset: 0
-    - _Rotation: 0
-    - _Speed: 0.3
     m_Colors:
     - _Color: {r: 1, g: 1, b: 1, a: 0}
-    - _Move: {r: 0, g: 5, b: 0, a: 0}
-    - _Speed: {r: 0, g: -2, b: 0, a: 0}
-    - _Tilling: {r: 1, g: 0.5, b: 0, a: 0}
-    - _Vector2: {r: 0, g: 5, b: 0, a: 0}
+    - _Vector2: {r: 0, g: 1.94, b: 0, a: 0}
   m_BuildTextureStacks: []
   m_AllowLocking: 1
---- !u!114 &5322744317708522669
+--- !u!114 &8231303772498565525
 MonoBehaviour:
   m_ObjectHideFlags: 11
   m_CorrespondingSourceObject: {fileID: 0}
